@@ -109,7 +109,7 @@ public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         transform.localScale = Vector3.one * normalScale;
     }
     public void RefreshButton()
-    {
+    {   
         CheckPurchased();
         UpdateInteractable();
         ResetVisuals();

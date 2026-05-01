@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
@@ -40,6 +42,10 @@ public class Magnet : MonoBehaviour
     public GameObject durabilityPopupPrefab;
     public Transform durabilityPopupSpawnPoint;
 
+    public GameObject GemInventorySystem;
+    public GameObject[] GemInventorySlots;
+    public Image[] GemInventoryImageDisplays;
+
     [Header("Fish Slowdown")]
     public FishFinder fishFinder;
     public float horizontalSlowPerFish = 0.5f;
@@ -56,6 +62,17 @@ public class Magnet : MonoBehaviour
     public float hitFreezeTime = 0.2f;
     public float hitShakeAmount = 0.15f;
     public float hitShakeDuration = 0.2f;
+
+    [Header("Gem Holding")]
+    [HideInInspector]
+    public int amountToHold = 1;
+    [HideInInspector]
+    public int currentGemsHeld = 0;
+
+    public List<SpriteRenderer> gemSpots;
+
+    [Header("Gem Capacity Upgrades")]
+    public int[] gemCapacityUpgradeIDs;
 
     [Header("Death")]
     public bool isDead = false;
@@ -74,6 +91,9 @@ public class Magnet : MonoBehaviour
 
     private bool hasUpgrade1 = false;
     private bool hasUpgrade2 = false;
+    private bool hasUpgrade5 = false;
+
+    private float meterCountTimesBy = 2;
     private enum VerticalMode
     {
         Normal,
@@ -87,6 +107,7 @@ public class Magnet : MonoBehaviour
     {
         hasUpgrade1 = PlayerPrefs.GetInt("PlayerUpgrade1", 0) == 1;
         hasUpgrade2 = PlayerPrefs.GetInt("PlayerUpgrade2", 0) == 1;
+        hasUpgrade5 = PlayerPrefs.GetInt("PlayerUpgrade5", 0) == 1;
 
         if (hasUpgrade1)
         {
@@ -104,6 +125,23 @@ public class Magnet : MonoBehaviour
             Lamp.sprite = LampUpgrade;
             lightDecreaseAmount = 5;
             startLightIntensity = 2;
+        }
+
+        if (hasUpgrade5)
+        {
+            meterCountTimesBy = 2.5f;
+            fallSpeed = 7;
+            speedChange = 4f;
+        }
+
+        amountToHold = 1;
+
+        foreach (int upgradeID in gemCapacityUpgradeIDs)
+        {
+            if (PlayerPrefs.GetInt("PlayerUpgrade" + upgradeID, 0) == 1)
+            {
+                amountToHold++;
+            }
         }
 
         rb = GetComponent<Rigidbody2D>();
@@ -176,7 +214,7 @@ public class Magnet : MonoBehaviour
     {
         float y = transform.position.y;
 
-        meterCount = Mathf.RoundToInt(Mathf.Abs(y) * 2f);
+        meterCount = Mathf.RoundToInt(Mathf.Abs(y) * meterCountTimesBy);
 
         if (meterText != null)
         {
@@ -326,9 +364,37 @@ public class Magnet : MonoBehaviour
 
         SceneManager.LoadScene("Start");
     }
-    public void Win()
+    public void Win(Sprite gemSprite)
     {
         if (isDead) return;
+
+        currentGemsHeld++;
+
+        // Not enough gems yet
+        if (currentGemsHeld < amountToHold)
+        {
+            int spotIndex = currentGemsHeld - 1;
+
+            if (spotIndex >= 0 && spotIndex < gemSpots.Count && gemSpots[spotIndex] != null)
+            {
+                gemSpots[spotIndex].sprite = gemSprite;
+            }
+
+            return;
+        }
+
+        // Final gem only
+        GameObject finalGemSpot = GameObject.FindGameObjectWithTag("GemSpot");
+
+        if (finalGemSpot != null)
+        {
+            SpriteRenderer sr = finalGemSpot.GetComponent<SpriteRenderer>();
+
+            if (sr != null)
+            {
+                sr.sprite = gemSprite;
+            }
+        }
 
         isDead = true;
 
@@ -345,8 +411,16 @@ public class Magnet : MonoBehaviour
             cameraScript.stopVerticalOffset = true;
         }
 
+        GameObject[] gems = GameObject.FindGameObjectsWithTag("Gem");
+
+        for (int i = 0; i < gems.Length; i++)
+        {
+            Destroy(gems[i]);
+        }
+
         StartCoroutine(WinSequence());
     }
+
     IEnumerator WinSequence()
     {
         yield return new WaitForSeconds(1f);

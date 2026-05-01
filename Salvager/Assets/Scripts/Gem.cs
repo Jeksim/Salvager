@@ -68,17 +68,6 @@ public class Gem : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        // GemSpot sprite update
-        GameObject gemSpot = GameObject.FindGameObjectWithTag("GemSpot");
-        if (gemSpot != null)
-        {
-            SpriteRenderer sr = gemSpot.GetComponent<SpriteRenderer>();
-            if (sr != null && id > 0 && id <= gemSprites.Length)
-            {
-                sr.sprite = gemSprites[id - 1];
-            }
-        }
-
         string gemKey = "gemstone" + id;
 
         bool firstTime = PlayerPrefs.GetInt(gemKey, 0) != 1;
@@ -99,19 +88,14 @@ public class Gem : MonoBehaviour
         Magnet magnet = other.GetComponent<Magnet>();
         if (magnet != null)
         {
-            magnet.Win();
+            magnet.Win(gemSprites[id - 1]);
         }
 
         AddCoins();
         SpawnCoinPopup();
         Instantiate(moneyCountUIPrefab, transform.position, Quaternion.identity);
 
-        GameObject[] gems = GameObject.FindGameObjectsWithTag("Gem");
-
-        for (int i = 0; i < gems.Length; i++)
-        {
-            Destroy(gems[i]);
-        }
+        Destroy(gameObject);
     }
 
     void UpdateAudioVolume()

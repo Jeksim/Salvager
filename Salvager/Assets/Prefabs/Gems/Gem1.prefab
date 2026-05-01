@@ -160,7 +160,7 @@ MonoBehaviour:
   - {fileID: 0}
   popUpObject: {fileID: 1486418302812777256, guid: ab733d8e7fdf73e4ba9082bb7180cbb3, type: 3}
   moneyCountUIPrefab: {fileID: 3418031667480403005, guid: 0a6ced13562c0a24d93ea8fbdcf2a74e, type: 3}
-  coinAmount: 20
+  coinAmount: 50
   coinPopupPrefab: {fileID: 7574496830408823794, guid: 60ff560b9ef7eb54ca714c4bd0491011, type: 3}
   coinPopupSpawnPoint: {fileID: 1697346390779813107}
   audioSource: {fileID: 8728144253809692620}

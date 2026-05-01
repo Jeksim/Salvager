@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5522714419572699912, guid: f3cf6107e4eb55a41b288552604183d6, type: 3}
       propertyPath: coinAmount
-      value: 1500
+      value: 1600
       objectReference: {fileID: 0}
     - target: {fileID: 5522714419572699912, guid: f3cf6107e4eb55a41b288552604183d6, type: 3}
       propertyPath: popUpObject

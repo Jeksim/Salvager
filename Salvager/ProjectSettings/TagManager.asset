@@ -9,6 +9,7 @@ TagManager:
   - Gem
   - Button
   - MoneyCount
+  - MoneyDisplay
   layers:
   - Default
   - TransparentFX

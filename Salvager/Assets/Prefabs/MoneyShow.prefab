@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4438958098379501093}
   - component: {fileID: 2102273192720706549}
   - component: {fileID: 8629535241700519311}
+  - component: {fileID: 6726677432059906658}
   m_Layer: 5
   m_Name: MoneyShow
-  m_TagString: Untagged
+  m_TagString: MoneyDisplay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,6 +104,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6726677432059906658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3418031667480403005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7657b33096d072d478bd515e8e212eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tmpText: {fileID: 1137745845336165615}
+  image: {fileID: 7272212103261427630}
+  waitBeforeFade: 4
+  fadeDuration: 1
 --- !u!1 &4153248996767885111
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,3 +345,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 1137745845336165615}
+  countDuration: 2

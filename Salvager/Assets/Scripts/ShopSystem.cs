@@ -4,7 +4,7 @@ public class ShopSystem : MonoBehaviour
 {
     public void BuyUpgrade(int upgradeID)
     {
-        if (upgradeID <= 0 || upgradeID > 3) return;
+        if (upgradeID <= 0) return;
 
         string key = "PlayerUpgrade" + upgradeID;
 
