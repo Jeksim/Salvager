@@ -7,11 +7,16 @@ public class UIButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public float hoverScale = 1.2f;
     public float otherScale = 0.9f;
 
+    public AudioSource hoverSound;
+    public AudioSource clickSound;
+
     private static bool anyHovered = false;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         anyHovered = true;
+
+        hoverSound.Play();
 
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
 
