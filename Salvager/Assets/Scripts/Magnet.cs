@@ -14,6 +14,8 @@ public class Magnet : MonoBehaviour
     public float fallSpeed = 5f;
     public float speedChange = 1f;
 
+    [Space(15)]
+
     [Header("Visual Juice")]
     public Transform ropeVisual;
     public Transform magnetVisual;
@@ -25,15 +27,23 @@ public class Magnet : MonoBehaviour
     public Color upgradedColor = Color.black;
     public Color upgradedColor1 = Color.black;
 
+    [Space(8)]
+
     public SpriteRenderer Lamp;
     public Sprite LampDefault;
     public Sprite LampUpgrade;
+
+    [Space(8)]
 
     public float ropeTiltAmount = 8f;
     public float ropeTiltSmooth = 8f;
 
     public float magnetTiltAmount = 10f;
     public float magnetTiltSmooth = 10f;
+
+    [Space(15)]
+    public SpriteRenderer[] characterSuitRenderers;
+    public Sprite[] characterSuitUpgradedSprites;
 
     [Header("UI")]
     public TextMeshProUGUI meterText;
@@ -42,9 +52,7 @@ public class Magnet : MonoBehaviour
     public GameObject durabilityPopupPrefab;
     public Transform durabilityPopupSpawnPoint;
 
-    public GameObject GemInventorySystem;
     public GameObject[] GemInventorySlots;
-    public Image[] GemInventoryImageDisplays;
 
     [Header("Fish Slowdown")]
     public FishFinder fishFinder;
@@ -91,6 +99,7 @@ public class Magnet : MonoBehaviour
 
     private bool hasUpgrade1 = false;
     private bool hasUpgrade2 = false;
+    private bool hasUpgrade4 = false;
     private bool hasUpgrade5 = false;
 
     private float meterCountTimesBy = 2;
@@ -108,6 +117,7 @@ public class Magnet : MonoBehaviour
         hasUpgrade1 = PlayerPrefs.GetInt("PlayerUpgrade1", 0) == 1;
         hasUpgrade2 = PlayerPrefs.GetInt("PlayerUpgrade2", 0) == 1;
         hasUpgrade5 = PlayerPrefs.GetInt("PlayerUpgrade5", 0) == 1;
+
 
         if (hasUpgrade1)
         {
@@ -132,6 +142,13 @@ public class Magnet : MonoBehaviour
             meterCountTimesBy = 2.5f;
             fallSpeed = 7;
             speedChange = 4f;
+
+            //visuals for upgrade 5
+            for (int i = 0; i < characterSuitRenderers.Length; i++)
+            {
+                characterSuitRenderers[i].sprite = characterSuitUpgradedSprites[i];
+            }
+
         }
 
         amountToHold = 1;
@@ -141,6 +158,18 @@ public class Magnet : MonoBehaviour
             if (PlayerPrefs.GetInt("PlayerUpgrade" + upgradeID, 0) == 1)
             {
                 amountToHold++;
+            }
+        }
+        
+        if (amountToHold > 1)
+        {
+            //gem inventory UI
+            for (int i = 0; i < GemInventorySlots.Length; i++)
+            {
+                if (GemInventorySlots[i] != null)
+                {
+                    GemInventorySlots[i].SetActive(i < amountToHold);
+                }
             }
         }
 
@@ -369,6 +398,21 @@ public class Magnet : MonoBehaviour
         if (isDead) return;
 
         currentGemsHeld++;
+
+        if (amountToHold > 1)
+        {
+            int uiIndex = currentGemsHeld - 1;
+
+            if (uiIndex >= 0 && uiIndex < GemInventorySlots.Length && GemInventorySlots[uiIndex] != null)
+            {
+                Image img = GemInventorySlots[uiIndex].GetComponent<Image>();
+
+                if (img != null)
+                {
+                    img.sprite = gemSprite;
+                }
+            }
+        }
 
         // Not enough gems yet
         if (currentGemsHeld < amountToHold)
