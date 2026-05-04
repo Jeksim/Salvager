@@ -15,6 +15,8 @@ public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private Button button;
 
+    public AudioSource hoverSound;
+
     void Awake()
     {
         button = GetComponent<Button>();
@@ -90,6 +92,8 @@ public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             hoverObject.SetActive(true);
         }
+
+        hoverSound.Play();
 
         transform.localScale = Vector3.one * hoverScale;
     }

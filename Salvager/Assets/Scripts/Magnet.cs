@@ -45,6 +45,10 @@ public class Magnet : MonoBehaviour
     public SpriteRenderer[] characterSuitRenderers;
     public Sprite[] characterSuitUpgradedSprites;
 
+    [Space(15)]
+
+    public GameObject DeepPostProcess;
+
     [Header("UI")]
     public TextMeshProUGUI meterText;
     public int meterCount;
@@ -53,6 +57,19 @@ public class Magnet : MonoBehaviour
     public Transform durabilityPopupSpawnPoint;
 
     public GameObject[] GemInventorySlots;
+    public GameObject[] GemInventoryBubbles;
+
+    [Header("Movement Input Sounds")]
+    public AudioSource pressLeftAudioSource;
+    public AudioSource pressRightAudioSource;
+    public AudioSource pressUpAudioSource;
+    public AudioSource pressDownAudioSource;
+
+    [Header("Upgrade 8 Stop")]
+    public int stopMovementUpgradeID = 8;
+
+    [Header("Rotation Reset")]
+    public float rotationResetSnapAmount = 0.1f;
 
     [Header("Fish Slowdown")]
     public FishFinder fishFinder;
@@ -102,6 +119,9 @@ public class Magnet : MonoBehaviour
     private bool hasUpgrade4 = false;
     private bool hasUpgrade5 = false;
 
+    // ADDED
+    private bool hasUpgrade8 = false;
+
     private float meterCountTimesBy = 2;
     private enum VerticalMode
     {
@@ -118,6 +138,8 @@ public class Magnet : MonoBehaviour
         hasUpgrade2 = PlayerPrefs.GetInt("PlayerUpgrade2", 0) == 1;
         hasUpgrade5 = PlayerPrefs.GetInt("PlayerUpgrade5", 0) == 1;
 
+        // ADDED
+        hasUpgrade8 = PlayerPrefs.GetInt("PlayerUpgrade" + stopMovementUpgradeID, 0) == 1;
 
         if (hasUpgrade1)
         {
@@ -139,11 +161,10 @@ public class Magnet : MonoBehaviour
 
         if (hasUpgrade5)
         {
-            meterCountTimesBy = 2.5f;
-            fallSpeed = 7;
-            speedChange = 4f;
+            meterCountTimesBy = 3f;
+            fallSpeed = 6;
+            speedChange = 3.5f;
 
-            //visuals for upgrade 5
             for (int i = 0; i < characterSuitRenderers.Length; i++)
             {
                 characterSuitRenderers[i].sprite = characterSuitUpgradedSprites[i];
@@ -160,15 +181,15 @@ public class Magnet : MonoBehaviour
                 amountToHold++;
             }
         }
-        
+
         if (amountToHold > 1)
         {
-            //gem inventory UI
             for (int i = 0; i < GemInventorySlots.Length; i++)
             {
                 if (GemInventorySlots[i] != null)
                 {
                     GemInventorySlots[i].SetActive(i < amountToHold);
+                    GemInventoryBubbles[i].SetActive(i < amountToHold);
                 }
             }
         }
@@ -190,6 +211,9 @@ public class Magnet : MonoBehaviour
             UpdateMeters();
             return;
         }
+
+        // ADDED
+        HandleMovementInputSounds();
 
         HandleVerticalInput();
         HandleVisuals();
@@ -236,9 +260,49 @@ public class Magnet : MonoBehaviour
                 break;
         }
 
+        if (hasUpgrade8 && currentVerticalMode == VerticalMode.Up)
+        {
+            rb.linearVelocity = new Vector2(horizontalInput * adjustedHorizontalSpeed, 0f);
+            return;
+        }
+
+        if (meterCount >= 1300)
+        {
+            DeepPostProcess.SetActive(true);
+        }
+
         rb.linearVelocity = new Vector2(horizontalInput * adjustedHorizontalSpeed, -currentFallSpeed);
     }
+    void HandleMovementInputSounds()
+    {
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            PlayMovementInputSound(pressLeftAudioSource);
+        }
 
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            PlayMovementInputSound(pressRightAudioSource);
+        }
+
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            PlayMovementInputSound(pressUpAudioSource);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            PlayMovementInputSound(pressDownAudioSource);
+        }
+    }
+
+    void PlayMovementInputSound(AudioSource source)
+    {
+        if (source == null) return;
+
+        source.Stop();
+        source.Play();
+    }
     void UpdateMeters()
     {
         float y = transform.position.y;
@@ -295,6 +359,12 @@ public class Magnet : MonoBehaviour
                 targetRot,
                 Time.deltaTime * ropeTiltSmooth
             );
+
+            // ADDED
+            if (horizontalInput == 0f && Quaternion.Angle(ropeVisual.localRotation, Quaternion.identity) <= rotationResetSnapAmount)
+            {
+                ropeVisual.localRotation = Quaternion.identity;
+            }
         }
 
         if (magnetVisual != null)
@@ -307,6 +377,12 @@ public class Magnet : MonoBehaviour
                 targetRot,
                 Time.deltaTime * magnetTiltSmooth
             );
+
+            // ADDED
+            if (horizontalInput == 0f && Quaternion.Angle(magnetVisual.localRotation, Quaternion.identity) <= rotationResetSnapAmount)
+            {
+                magnetVisual.localRotation = Quaternion.identity;
+            }
         }
     }
 
@@ -393,6 +469,7 @@ public class Magnet : MonoBehaviour
 
         SceneManager.LoadScene("Start");
     }
+
     public void Win(Sprite gemSprite)
     {
         if (isDead) return;
@@ -410,11 +487,13 @@ public class Magnet : MonoBehaviour
                 if (img != null)
                 {
                     img.sprite = gemSprite;
+
+                    // ADDED
+                    img.SetNativeSize();
                 }
             }
         }
 
-        // Not enough gems yet
         if (currentGemsHeld < amountToHold)
         {
             int spotIndex = currentGemsHeld - 1;
@@ -427,7 +506,6 @@ public class Magnet : MonoBehaviour
             return;
         }
 
-        // Final gem only
         GameObject finalGemSpot = GameObject.FindGameObjectWithTag("GemSpot");
 
         if (finalGemSpot != null)
@@ -522,6 +600,7 @@ public class Magnet : MonoBehaviour
             Instantiate(deadLamp, spawnPos, Quaternion.identity);
         }
     }
+
     void SpawnDurabilityPopup()
     {
         if (durabilityPopupPrefab == null) return;

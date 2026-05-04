@@ -655,6 +655,8 @@ MonoBehaviour:
     sprite: {fileID: 3087020905561281407, guid: 728eaa1e0b2064f449422915d802ee15, type: 3}
   - meterThreshold: 600
     sprite: {fileID: 9032759417669961511, guid: 728eaa1e0b2064f449422915d802ee15, type: 3}
+  - meterThreshold: 1260
+    sprite: {fileID: 21300000, guid: 995f7e7212b8161498a01953f669bbc6, type: 3}
 --- !u!1 &1362811923234195343
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,6 +1076,8 @@ MonoBehaviour:
     sprite: {fileID: 3087020905561281407, guid: 728eaa1e0b2064f449422915d802ee15, type: 3}
   - meterThreshold: 600
     sprite: {fileID: 9032759417669961511, guid: 728eaa1e0b2064f449422915d802ee15, type: 3}
+  - meterThreshold: 1260
+    sprite: {fileID: 21300000, guid: 995f7e7212b8161498a01953f669bbc6, type: 3}
 --- !u!1 &2154438757319750132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,6 +1705,8 @@ MonoBehaviour:
     - {fileID: 3299174026854552503, guid: b10e5e8c6f936e8428ac253a15c6b89f, type: 3}
     gems:
     - {fileID: 434560924001656048, guid: 7d6a5695d2bc39543bd8c76fd1c12cf0, type: 3}
+    - {fileID: 434560924001656048, guid: 7d6a5695d2bc39543bd8c76fd1c12cf0, type: 3}
+    - {fileID: 4345093772639045110, guid: 718817ec7ceb2444786c4d246cd42696, type: 3}
     minSpawn: 3
     maxSpawn: 5
   - meterThreshold: 150
@@ -1709,6 +1715,11 @@ MonoBehaviour:
     gems:
     - {fileID: 434560924001656048, guid: 7d6a5695d2bc39543bd8c76fd1c12cf0, type: 3}
     - {fileID: 4345093772639045110, guid: e74257b2b1454ca43878f4259b3783f0, type: 3}
+    - {fileID: 4345093772639045110, guid: e74257b2b1454ca43878f4259b3783f0, type: 3}
+    - {fileID: 4345093772639045110, guid: e74257b2b1454ca43878f4259b3783f0, type: 3}
+    - {fileID: 4345093772639045110, guid: 718817ec7ceb2444786c4d246cd42696, type: 3}
+    - {fileID: 4345093772639045110, guid: 718817ec7ceb2444786c4d246cd42696, type: 3}
+    - {fileID: 4345093772639045110, guid: 6401dd692f131524abdd09b768d1ca8f, type: 3}
     minSpawn: 6
     maxSpawn: 9
   - meterThreshold: 205
@@ -1719,6 +1730,9 @@ MonoBehaviour:
     - {fileID: 7878432448795889505, guid: 12eac9bbb46290546888106e27b29217, type: 3}
     gems:
     - {fileID: 4345093772639045110, guid: e74257b2b1454ca43878f4259b3783f0, type: 3}
+    - {fileID: 4345093772639045110, guid: e74257b2b1454ca43878f4259b3783f0, type: 3}
+    - {fileID: 4345093772639045110, guid: e74257b2b1454ca43878f4259b3783f0, type: 3}
+    - {fileID: 4345093772639045110, guid: 6401dd692f131524abdd09b768d1ca8f, type: 3}
     minSpawn: 4
     maxSpawn: 6
   - meterThreshold: 355
@@ -1729,8 +1743,13 @@ MonoBehaviour:
     - {fileID: 3299174026854552503, guid: b10e5e8c6f936e8428ac253a15c6b89f, type: 3}
     gems:
     - {fileID: 6767055754203042962, guid: 7b94b8d9994ff674394f2399d4d524a5, type: 3}
+    - {fileID: 6767055754203042962, guid: 7b94b8d9994ff674394f2399d4d524a5, type: 3}
+    - {fileID: 4345093772639045110, guid: c830dc0cb4455c9428e466e314e21f59, type: 3}
+    - {fileID: 6767055754203042962, guid: 7b94b8d9994ff674394f2399d4d524a5, type: 3}
+    - {fileID: 4345093772639045110, guid: 6401dd692f131524abdd09b768d1ca8f, type: 3}
+    - {fileID: 4345093772639045110, guid: 6401dd692f131524abdd09b768d1ca8f, type: 3}
     minSpawn: 4
-    maxSpawn: 8
+    maxSpawn: 7
   - meterThreshold: 550
     rocks:
     - {fileID: 7878432448795889505, guid: 12eac9bbb46290546888106e27b29217, type: 3}
@@ -1743,8 +1762,18 @@ MonoBehaviour:
     - {fileID: 2507494015409831105, guid: 5d155cbcff4d9174f807c3665b0d50db, type: 3}
     gems:
     - {fileID: 7197175637638320068, guid: bbcbf9c0205db79478e2526868ef49ec, type: 3}
-    minSpawn: 5
-    maxSpawn: 10
+    - {fileID: 7197175637638320068, guid: bbcbf9c0205db79478e2526868ef49ec, type: 3}
+    - {fileID: 7197175637638320068, guid: bbcbf9c0205db79478e2526868ef49ec, type: 3}
+    - {fileID: 4345093772639045110, guid: c830dc0cb4455c9428e466e314e21f59, type: 3}
+    - {fileID: 4345093772639045110, guid: 0dbca4b6be7aa2d4896a118f47b31311, type: 3}
+    - {fileID: 4345093772639045110, guid: 0dbca4b6be7aa2d4896a118f47b31311, type: 3}
+    - {fileID: 4345093772639045110, guid: 6401dd692f131524abdd09b768d1ca8f, type: 3}
+    - {fileID: 6767055754203042962, guid: 7b94b8d9994ff674394f2399d4d524a5, type: 3}
+    - {fileID: 7197175637638320068, guid: bbcbf9c0205db79478e2526868ef49ec, type: 3}
+    - {fileID: 7197175637638320068, guid: bbcbf9c0205db79478e2526868ef49ec, type: 3}
+    - {fileID: 7197175637638320068, guid: bbcbf9c0205db79478e2526868ef49ec, type: 3}
+    minSpawn: 4
+    maxSpawn: 8
   - meterThreshold: 750
     rocks:
     - {fileID: 7214781849371816508, guid: 0c6dbeb2548a6a64ca2aef051f2b28c7, type: 3}
@@ -1755,8 +1784,16 @@ MonoBehaviour:
     gems:
     - {fileID: 7197175637638320068, guid: bbcbf9c0205db79478e2526868ef49ec, type: 3}
     - {fileID: 8176000944340631079, guid: f3cf6107e4eb55a41b288552604183d6, type: 3}
-    minSpawn: 6
-    maxSpawn: 11
+    - {fileID: 7197175637638320068, guid: bbcbf9c0205db79478e2526868ef49ec, type: 3}
+    - {fileID: 7197175637638320068, guid: bbcbf9c0205db79478e2526868ef49ec, type: 3}
+    - {fileID: 8176000944340631079, guid: f3cf6107e4eb55a41b288552604183d6, type: 3}
+    - {fileID: 8176000944340631079, guid: f3cf6107e4eb55a41b288552604183d6, type: 3}
+    - {fileID: 4345093772639045110, guid: 0dbca4b6be7aa2d4896a118f47b31311, type: 3}
+    - {fileID: 4345093772639045110, guid: 0dbca4b6be7aa2d4896a118f47b31311, type: 3}
+    - {fileID: 4345093772639045110, guid: 571a563dc499c3e49ad52fcf3776170d, type: 3}
+    - {fileID: 4345093772639045110, guid: 571a563dc499c3e49ad52fcf3776170d, type: 3}
+    minSpawn: 5
+    maxSpawn: 8
   - meterThreshold: 950
     rocks:
     - {fileID: 2507494015409831105, guid: 5d155cbcff4d9174f807c3665b0d50db, type: 3}
@@ -1765,10 +1802,67 @@ MonoBehaviour:
     - {fileID: 7878432448795889505, guid: 12eac9bbb46290546888106e27b29217, type: 3}
     - {fileID: 4818050780140278944, guid: a4a83e9d8e18fb54dbd7d0152f753aa7, type: 3}
     gems:
-    - {fileID: 4151568193434005472, guid: fbe2d5d2f7e948b43909027eeb2987ea, type: 3}
+    - {fileID: 4345093772639045110, guid: 571a563dc499c3e49ad52fcf3776170d, type: 3}
     - {fileID: 8176000944340631079, guid: f3cf6107e4eb55a41b288552604183d6, type: 3}
+    - {fileID: 4151568193434005472, guid: fbe2d5d2f7e948b43909027eeb2987ea, type: 3}
+    minSpawn: 6
+    maxSpawn: 9
+  - meterThreshold: 1150
+    rocks:
+    - {fileID: 1868296810015265024, guid: 02f3cd1008df12443b9cbcf37070d8e3, type: 3}
+    gems:
+    - {fileID: 4345093772639045110, guid: 571a563dc499c3e49ad52fcf3776170d, type: 3}
+    - {fileID: 4345093772639045110, guid: 0dbca4b6be7aa2d4896a118f47b31311, type: 3}
+    - {fileID: 4345093772639045110, guid: c830dc0cb4455c9428e466e314e21f59, type: 3}
+    minSpawn: 2
+    maxSpawn: 5
+  - meterThreshold: 1250
+    rocks:
+    - {fileID: 1868296810015265024, guid: 02f3cd1008df12443b9cbcf37070d8e3, type: 3}
+    - {fileID: 7214781849371816508, guid: 0c6dbeb2548a6a64ca2aef051f2b28c7, type: 3}
+    - {fileID: 2507494015409831105, guid: 5d155cbcff4d9174f807c3665b0d50db, type: 3}
+    - {fileID: 3299174026854552503, guid: b10e5e8c6f936e8428ac253a15c6b89f, type: 3}
+    - {fileID: 7878432448795889505, guid: 12eac9bbb46290546888106e27b29217, type: 3}
+    gems:
+    - {fileID: 4345093772639045110, guid: c0899a7824143024ea6bccec0d7587ff, type: 3}
+    - {fileID: 4345093772639045110, guid: 9ea3905ce247e9e42838b3974fd0d013, type: 3}
+    - {fileID: 4345093772639045110, guid: 9ea3905ce247e9e42838b3974fd0d013, type: 3}
+    - {fileID: 8176000944340631079, guid: f3cf6107e4eb55a41b288552604183d6, type: 3}
+    - {fileID: 8176000944340631079, guid: f3cf6107e4eb55a41b288552604183d6, type: 3}
+    - {fileID: 4345093772639045110, guid: 9ea3905ce247e9e42838b3974fd0d013, type: 3}
+    - {fileID: 4345093772639045110, guid: c724109e0547a8341b254da4f97c5475, type: 3}
+    - {fileID: 4151568193434005472, guid: fbe2d5d2f7e948b43909027eeb2987ea, type: 3}
+    minSpawn: 7
+    maxSpawn: 12
+  - meterThreshold: 1400
+    rocks:
+    - {fileID: 1868296810015265024, guid: 02f3cd1008df12443b9cbcf37070d8e3, type: 3}
+    - {fileID: 7214781849371816508, guid: 0c6dbeb2548a6a64ca2aef051f2b28c7, type: 3}
+    - {fileID: 2507494015409831105, guid: 5d155cbcff4d9174f807c3665b0d50db, type: 3}
+    - {fileID: 3299174026854552503, guid: b10e5e8c6f936e8428ac253a15c6b89f, type: 3}
+    - {fileID: 3299174026854552503, guid: b10e5e8c6f936e8428ac253a15c6b89f, type: 3}
+    - {fileID: 7214781849371816508, guid: 0c6dbeb2548a6a64ca2aef051f2b28c7, type: 3}
+    - {fileID: 7878432448795889505, guid: 12eac9bbb46290546888106e27b29217, type: 3}
+    gems:
+    - {fileID: 4345093772639045110, guid: c0899a7824143024ea6bccec0d7587ff, type: 3}
+    - {fileID: 4345093772639045110, guid: 9ea3905ce247e9e42838b3974fd0d013, type: 3}
+    - {fileID: 4345093772639045110, guid: 540f33fd8bebf0b4e8ccbb598630b660, type: 3}
     minSpawn: 8
     maxSpawn: 14
+  - meterThreshold: 1500
+    rocks:
+    - {fileID: 1868296810015265024, guid: 02f3cd1008df12443b9cbcf37070d8e3, type: 3}
+    - {fileID: 7214781849371816508, guid: 0c6dbeb2548a6a64ca2aef051f2b28c7, type: 3}
+    - {fileID: 2507494015409831105, guid: 5d155cbcff4d9174f807c3665b0d50db, type: 3}
+    - {fileID: 3299174026854552503, guid: b10e5e8c6f936e8428ac253a15c6b89f, type: 3}
+    - {fileID: 4818050780140278944, guid: a4a83e9d8e18fb54dbd7d0152f753aa7, type: 3}
+    gems:
+    - {fileID: 4345093772639045110, guid: c0899a7824143024ea6bccec0d7587ff, type: 3}
+    - {fileID: 4345093772639045110, guid: 9ea3905ce247e9e42838b3974fd0d013, type: 3}
+    - {fileID: 4345093772639045110, guid: c724109e0547a8341b254da4f97c5475, type: 3}
+    - {fileID: 4151568193434005472, guid: fbe2d5d2f7e948b43909027eeb2987ea, type: 3}
+    minSpawn: 10
+    maxSpawn: 15
   minSpawn: 2
   maxSpawn: 5
   minDistance: 2.5
@@ -3347,6 +3441,8 @@ MonoBehaviour:
     sprite: {fileID: 3087020905561281407, guid: 728eaa1e0b2064f449422915d802ee15, type: 3}
   - meterThreshold: 600
     sprite: {fileID: 9032759417669961511, guid: 728eaa1e0b2064f449422915d802ee15, type: 3}
+  - meterThreshold: 1260
+    sprite: {fileID: 21300000, guid: 995f7e7212b8161498a01953f669bbc6, type: 3}
 --- !u!1 &8403784799935941762
 GameObject:
   m_ObjectHideFlags: 0

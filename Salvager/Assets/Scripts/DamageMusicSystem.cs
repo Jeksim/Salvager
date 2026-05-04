@@ -12,23 +12,31 @@ public class DamageMusicSystem : MonoBehaviour
     public AudioSource hitOnceTrack;
     public AudioSource hitTwiceTrack;
     public AudioSource deathTrack;
+    public AudioSource depthsTrack;
+
+    [Header("Depths Music")]
+    public int depthsStartMeter = 1300;
+
+    [Header("Depths Behavior")]
+    public bool restartDepthsOnTrigger = true;
+    private bool depthsTriggered = false;
 
     [Header("Pitch")]
     public float pitchDropPer50m = 0.1f;
     public float minPitch = 0.1f;
 
+    public bool usePitchChangeSystem = false;
+
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
 
         PlayAllTracks();
         MuteAllTracks();
@@ -37,8 +45,17 @@ public class DamageMusicSystem : MonoBehaviour
 
     void Update()
     {
+        if (!usePitchChangeSystem)
+        {
+            ResetAllPitches();
+        }
+
         UpdateMusic();
-        UpdatePitchFromMeters();
+
+        if (usePitchChangeSystem)
+        {
+            UpdatePitchFromMeters();
+        }
     }
 
     void PlayAllTracks()
@@ -48,6 +65,7 @@ public class DamageMusicSystem : MonoBehaviour
         PlayTrack(hitOnceTrack);
         PlayTrack(hitTwiceTrack);
         PlayTrack(deathTrack);
+        PlayTrack(depthsTrack);
     }
 
     void PlayTrack(AudioSource track)
@@ -55,6 +73,7 @@ public class DamageMusicSystem : MonoBehaviour
         if (track != null && !track.isPlaying)
         {
             track.loop = true;
+            track.pitch = 1f;
             track.Play();
         }
     }
@@ -66,6 +85,7 @@ public class DamageMusicSystem : MonoBehaviour
         SetMuted(hitOnceTrack, true);
         SetMuted(hitTwiceTrack, true);
         SetMuted(deathTrack, true);
+        SetMuted(depthsTrack, true);
     }
 
     void SetMuted(AudioSource track, bool muted)
@@ -81,12 +101,14 @@ public class DamageMusicSystem : MonoBehaviour
         MuteAllTracks();
         SetMuted(trackToUnmute, false);
     }
+
     void UpdateMusic()
     {
         Scene currentScene = SceneManager.GetActiveScene();
 
         if (currentScene.name == "Start")
         {
+            depthsTriggered = false;
             UnmuteOnly(startTrack);
             return;
         }
@@ -111,45 +133,67 @@ public class DamageMusicSystem : MonoBehaviour
             return;
         }
 
+        if (magnet.meterCount >= depthsStartMeter)
+        {
+            if (!depthsTriggered)
+            {
+                depthsTriggered = true;
+
+                if (depthsTrack != null && restartDepthsOnTrigger)
+                {
+                    depthsTrack.Stop();
+                    depthsTrack.pitch = 1f;
+                    depthsTrack.time = 0f;
+                    depthsTrack.Play();
+                }
+            }
+            usePitchChangeSystem = false;
+
+            ResetAllPitches();
+
+            if (depthsTrack != null)
+            {
+                depthsTrack.pitch = 1f;
+            }
+
+            UnmuteOnly(depthsTrack);
+            return;
+        }
+
         int remainingDurability = magnet.lightDecreaseAmount - magnet.hitCount;
         bool hasUpgrade2 = PlayerPrefs.GetInt("PlayerUpgrade2", 0) == 1;
 
-        if (hasUpgrade2)
+        if (usePitchChangeSystem)
         {
-            // 5-hit system:
-            // 5,4 = normal
-            // 3,2 = hit once
-            // 1 = hit twice
-            if (remainingDurability <= 1)
+            if (hasUpgrade2)
             {
-                UnmuteOnly(hitTwiceTrack);
-            }
-            else if (remainingDurability <= 3)
-            {
-                UnmuteOnly(hitOnceTrack);
+                if (remainingDurability <= 1)
+                {
+                    UnmuteOnly(hitTwiceTrack);
+                }
+                else if (remainingDurability <= 3)
+                {
+                    UnmuteOnly(hitOnceTrack);
+                }
+                else
+                {
+                    UnmuteOnly(track0m);
+                }
             }
             else
             {
-                UnmuteOnly(track0m);
-            }
-        }
-        else
-        {
-            // 3-hit system:
-            // 3 = normal
-            // 2 = hit once
-            // 1 = hit twice
-            if (remainingDurability <= 1)
-            {
-                UnmuteOnly(hitTwiceTrack);
-            }
-            else if (remainingDurability == 2)
-            {
-                UnmuteOnly(hitOnceTrack);
-            }
-            else
-            {
-                UnmuteOnly(track0m);
+                if (remainingDurability <= 1)
+                {
+                    UnmuteOnly(hitTwiceTrack);
+                }
+                else if (remainingDurability == 2)
+                {
+                    UnmuteOnly(hitOnceTrack);
+                }
+                else
+                {
+                    UnmuteOnly(track0m);
+                }
             }
         }
     }
@@ -171,6 +215,12 @@ public class DamageMusicSystem : MonoBehaviour
 
         if (magnet.isDead || magnet.isWinning) return;
 
+        if (magnet.meterCount >= depthsStartMeter)
+        {
+            ResetAllPitches();
+            return;
+        }
+
         int hundreds = magnet.meterCount / 50;
         float newPitch = 1f - (hundreds * pitchDropPer50m);
         newPitch = Mathf.Max(minPitch, newPitch);
@@ -180,6 +230,7 @@ public class DamageMusicSystem : MonoBehaviour
         SetPitch(hitOnceTrack, newPitch);
         SetPitch(hitTwiceTrack, newPitch);
         SetPitch(deathTrack, newPitch);
+        SetPitch(depthsTrack, newPitch);
     }
 
     void SetPitch(AudioSource track, float pitch)
@@ -197,9 +248,21 @@ public class DamageMusicSystem : MonoBehaviour
         SetPitch(hitOnceTrack, 1f);
         SetPitch(hitTwiceTrack, 1f);
         SetPitch(deathTrack, 1f);
+        SetPitch(depthsTrack, 1f);
     }
+
     public void PlayDeathNow()
     {
+        usePitchChangeSystem = true;
+        ResetAllPitches();
         UnmuteOnly(deathTrack);
+    }
+
+    void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
     }
 }
