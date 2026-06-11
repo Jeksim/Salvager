@@ -1866,7 +1866,7 @@ MonoBehaviour:
   minSpawn: 2
   maxSpawn: 5
   minDistance: 2.5
-  gemSpawnChance: 0.23
+  gemSpawnChance: 0.3
 --- !u!1 &3743299358790871576
 GameObject:
   m_ObjectHideFlags: 0
