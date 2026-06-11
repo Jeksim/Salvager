@@ -1,5 +1,7 @@
 Please note:
 Everything in this game was made by Jeksim in the 48 time span for ludumDare59. This includes all art, animations, sound effects, and music!
 
+(AllInOne Sprite shader was used for minor visual touches such as the water on the title screen tho had to be removed from source code)
+
 HOWEVER!
 Jeksim wrote the game's code but had AI assistance to do so (ChatGPT) with some very minor scripts such as coin counting effects, code for the UI pop ups, etc. being fully generated!
